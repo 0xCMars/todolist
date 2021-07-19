@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>To-DoList</title>
+        <link rel="stylesheet" href="todo.css">
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const todo = document.querySelector("#Thing");
+                const submit = document.querySelector("#submit");
+                
+                submit.disabled = true;
+
+                todo.onkeyup = () => {
+                    if(todo.value.length > 0) {
+                        submit.disabled = false;
+                    }
+                    else {
+                        submit.disabled = true;
+                    }
+                };
+
+                document.querySelector("form").onsubmit = () => {
+                    const task = todo.value;
+                    const li = document.createElement("li");
+                    li.id = "todolist"
+                    li.innerHTML = task;
+                    document.querySelector("#todolist").append(li);
+                    todo.value = "";
+                    submit.disabled = true;
+                    return false;
+                };
+
+                document.querySelectorAll("li").forEach(function(list) {
+                    list.onclick = () => {
+                        list.parentNode.removeChild(list);
+                    }
+                });
+
+            });
+        </script>
+
+    </head>
+    <body>
+        <h1 id="h1-center">Todo</h1>
+        <ul id="todolist">
+        </ul>
+        <form id="addThingForm">
+            <input id="Thing" placeholder="What to do" type="text">
+            <input id="submit" type="submit">
+        </form>
+    </body>
+</html>
